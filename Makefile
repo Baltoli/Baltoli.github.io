@@ -7,7 +7,7 @@ css:
 	rm -f style.css
 	sassc sass/main.sass > style.css
 
-prod:
+prod: css
 	yuicompressor style.css > min.css
 	rm -f style.css
 	mv min.css style.css
