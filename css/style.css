@@ -1,3 +1,8 @@
+body {
+  background-color: #FDFDFD;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
 .techs {
   font-size: 12px;
 }
@@ -13,4 +18,8 @@
 
 .hidden {
   display: none;
+}
+
+.project-title {
+  font-size: 1.2em;
 }
