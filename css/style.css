@@ -1,10 +1,13 @@
 body {
   background-color: #FDFDFD;
   font-family: "Lucida Console", Monaco, monospace;
+  line-height: 1.7;
 }
 
 .techs {
   font-size: 12px;
+  display: block;
+  margin-top: 8px;
 }
 
 .techs-title {
