@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peggo: src/peggo/parse_tree.h File Reference</title>
+<title>Peggo: src/lib/parse_tree.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -59,7 +59,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ed8be7737be60e241a95bd49ccc8942e.html">peggo</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c85d3e3c5052e9ad9ce18c6863244a25.html">lib</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -106,6 +106,21 @@ Functions</h2></td></tr>
 <tr class="memitem:afd8673bf5f18d6ead1064185f7832b6f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parse__tree_8h.html#afd8673bf5f18d6ead1064185f7832b6f">parse_total_length</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *tree)</td></tr>
 <tr class="memdesc:afd8673bf5f18d6ead1064185f7832b6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the total length of a parse result by summing over its children's lengths.  <a href="#afd8673bf5f18d6ead1064185f7832b6f">More...</a><br /></td></tr>
 <tr class="separator:afd8673bf5f18d6ead1064185f7832b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f9620ea28d5b0cc36ba93e825cb7e5c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parse__tree_8h.html#a0f9620ea28d5b0cc36ba93e825cb7e5c">parse_non_terminal_count</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *tree)</td></tr>
+<tr class="memdesc:a0f9620ea28d5b0cc36ba93e825cb7e5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of non-terminal children that a parse tree node has.  <a href="#a0f9620ea28d5b0cc36ba93e825cb7e5c">More...</a><br /></td></tr>
+<tr class="separator:a0f9620ea28d5b0cc36ba93e825cb7e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7c41de471497ce17e6a039b63f53f26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parse__tree_8h.html#ab7c41de471497ce17e6a039b63f53f26">parse_collect_non_terminals</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *tree)</td></tr>
+<tr class="memdesc:ab7c41de471497ce17e6a039b63f53f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the non-terminal children of a node and collect them into a contiguous area of memory.  <a href="#ab7c41de471497ce17e6a039b63f53f26">More...</a><br /></td></tr>
+<tr class="separator:ab7c41de471497ce17e6a039b63f53f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f771534406e9f859168d1efcd75d45d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parse__tree_8h.html#a9f771534406e9f859168d1efcd75d45d">parse_non_terminal_begin</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *tree)</td></tr>
+<tr class="memdesc:a9f771534406e9f859168d1efcd75d45d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer to the first non-terminal child node of the given tree.  <a href="#a9f771534406e9f859168d1efcd75d45d">More...</a><br /></td></tr>
+<tr class="separator:a9f771534406e9f859168d1efcd75d45d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee1e4a3381b395224c7413a1b44b608"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parse__tree_8h.html#aaee1e4a3381b395224c7413a1b44b608">parse_non_terminal_end</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *tree)</td></tr>
+<tr class="memdesc:aaee1e4a3381b395224c7413a1b44b608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a pointer to the end of the non-terminal children for the given tree.  <a href="#aaee1e4a3381b395224c7413a1b44b608">More...</a><br /></td></tr>
+<tr class="separator:aaee1e4a3381b395224c7413a1b44b608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e3264bd5c6a34ef8ba42dad69fad5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parse__tree_8h.html#a56e3264bd5c6a34ef8ba42dad69fad5f">parse_non_terminal_next</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *tree, <a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *child)</td></tr>
+<tr class="memdesc:a56e3264bd5c6a34ef8ba42dad69fad5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advance a pointer through the non-terminal children of a parse tree.  <a href="#a56e3264bd5c6a34ef8ba42dad69fad5f">More...</a><br /></td></tr>
+<tr class="separator:a56e3264bd5c6a34ef8ba42dad69fad5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a98b8ccfcf7c866d4966a4985a7a0ec15"></a>
@@ -158,6 +173,33 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">tree</td><td>The tree to add a child to </td></tr>
     <tr><td class="paramname">child</td><td>The child node to be added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab7c41de471497ce17e6a039b63f53f26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7c41de471497ce17e6a039b63f53f26">&#9670;&nbsp;</a></span>parse_collect_non_terminals()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a>* parse_collect_non_terminals </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find the non-terminal children of a node and collect them into a contiguous area of memory. </p>
+<p>The memory allocated by this function should be freed directly using <code>free</code> rather than <a class="el" href="parse__tree_8h.html#af41e0b26e9b276e38d02961c9b157eaf">parse_free</a>. The allocated memory will be exactly <a class="el" href="parse__tree_8h.html#a0f9620ea28d5b0cc36ba93e825cb7e5c">parse_non_terminal_count</a>(<code>tree</code>) elements in length, unless the length is 0, in which case <code>NULL</code> is returned.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tree</td><td>The parent node to collect children from </td></tr>
   </table>
   </dd>
 </dl>
@@ -230,6 +272,124 @@ Functions</h2></td></tr>
     <tr><td class="paramname">s</td><td>The symbol for this node </td></tr>
     <tr><td class="paramname">st</td><td>The starting offset of this node </td></tr>
     <tr><td class="paramname">len</td><td>The length of this node's parse result </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9f771534406e9f859168d1efcd75d45d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f771534406e9f859168d1efcd75d45d">&#9670;&nbsp;</a></span>parse_non_terminal_begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a>* parse_non_terminal_begin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a pointer to the first non-terminal child node of the given tree. </p>
+<p>If there are no such children, then the returned pointer will be equal to the end pointer returned by <code>parse_non_terminal_end</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tree</td><td>The parse tree to look for non-terminals in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0f9620ea28d5b0cc36ba93e825cb7e5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f9620ea28d5b0cc36ba93e825cb7e5c">&#9670;&nbsp;</a></span>parse_non_terminal_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t parse_non_terminal_count </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The number of non-terminal children that a parse tree node has. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tree</td><td>The tree whose children are to be counted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aaee1e4a3381b395224c7413a1b44b608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaee1e4a3381b395224c7413a1b44b608">&#9670;&nbsp;</a></span>parse_non_terminal_end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a>* parse_non_terminal_end </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a pointer to the end of the non-terminal children for the given tree. </p>
+<p>This pointer may not point to allocated memory and as such should never be dereferenced (only checked for equality with one that has been advanced through the non-terminals for a tree).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tree</td><td>The parse tree to look for non-terminals in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a56e3264bd5c6a34ef8ba42dad69fad5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e3264bd5c6a34ef8ba42dad69fad5f">&#9670;&nbsp;</a></span>parse_non_terminal_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a>* parse_non_terminal_next </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>tree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>child</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advance a pointer through the non-terminal children of a parse tree. </p>
+<p>If the child tree given is the last one, the return value of this function will be the same as <code>parse_non_terminal_end</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tree</td><td>The parent tree </td></tr>
+    <tr><td class="paramname">child</td><td>The current child pointer to be advanced </td></tr>
   </table>
   </dd>
 </dl>
