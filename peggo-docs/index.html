@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Peggo
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
   </td>
  </tr>
@@ -70,9 +70,10 @@ $(function() {
 <div class="fragment"><div class="line">git clone https://github.com/baltoli/peggo</div><div class="line">cd peggo</div><div class="line">mkdir Build</div><div class="line">cd Build</div><div class="line">cmake ..</div><div class="line">make</div></div><!-- fragment --><p>The available options that can be passed to CMake are:</p>
 <ul>
 <li><code>BUILD_DOCUMENTATION</code>: if this option is true, then Doxygen can be used to build generated documentation for the project with <code>make doc</code>.</li>
+<li><code>LOG_LEVEL</code>: number from 0-4. Higher numbers will cause more log output to be generated, and a value of 0 will disable all logging. Defaults to 0 if not specified.</li>
 </ul>
 <h3> Tests</h3>
-<p>Currently, tests for the project are implemented using <a href="https://cmocka.org">CMocka</a>, which must be installed in order to build the test suite. If CMocka is installed, then the tests will be built automatically (however, this is optional; if CMocka is not installed, then the project can still be built without tests). The test suite can be run with <code>test/unit_tests</code>.</p>
+<p>Currently, tests for the project are implemented using <a href="https://cmocka.org">CMocka</a>, which must be installed in order to build the test suite. If CMocka is installed, then the tests will be built automatically (however, this is optional; if CMocka is not installed, then the project can still be built without tests). The test suite can be run with <code>make test</code>.</p>
 <h2>Usage</h2>
 <p>The current interface presented by peggo is a C library that provides an interface to construct PEG grammars, and to parse strings according to these grammars.</p>
 <p>The library can be installed with <code>make install</code> (the installation prefix is customisable as usual with CMake). Then include <code>&lt;peggo/peggo.h&gt;</code> and link with <code>-lpeggo</code> to use the parsing API as described in the documentation. </p>

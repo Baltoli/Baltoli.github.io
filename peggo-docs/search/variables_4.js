@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['production',['production',['../structrule__st.html#a440e2fe23c06212d07439ffb5fdcf4c1',1,'rule_st']]]
+  ['n_5fchildren',['n_children',['../structparse__st.html#a308a9ff2f607ba588eb5c88ed26e6788',1,'parse_st']]]
 ];

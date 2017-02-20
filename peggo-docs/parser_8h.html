@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Peggo
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.3.0</span>
    </div>
   </td>
  </tr>
@@ -64,6 +64,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">parser.h File Reference</div>  </div>
@@ -72,21 +75,194 @@ $(function() {
 
 <p><a href="parser_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structparse__error__st.html">parse_error_st</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds information about a parsing error.  <a href="structparse__error__st.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structparse__result__st.html">parse_result_st</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tagged union type that can hold a parsing error or a valid result.  <a href="structparse__result__st.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a1d5fa7d36a301f82de928c44a5ed09ce"><td class="memItemLeft" align="right" valign="top"><a id="a1d5fa7d36a301f82de928c44a5ed09ce"></a>
+typedef struct <a class="el" href="structparse__error__st.html">parse_error_st</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a></td></tr>
+<tr class="memdesc:a1d5fa7d36a301f82de928c44a5ed09ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds information about a parsing error. <br /></td></tr>
+<tr class="separator:a1d5fa7d36a301f82de928c44a5ed09ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113b84eb4fe16fae19ae56da45b18ac5"><td class="memItemLeft" align="right" valign="top"><a id="a113b84eb4fe16fae19ae56da45b18ac5"></a>
+typedef struct <a class="el" href="structparse__result__st.html">parse_result_st</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a></td></tr>
+<tr class="memdesc:a113b84eb4fe16fae19ae56da45b18ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tagged union type that can hold a parsing error or a valid result. <br /></td></tr>
+<tr class="separator:a113b84eb4fe16fae19ae56da45b18ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a2298ccede43aef91750e04a9f9532359"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a2298ccede43aef91750e04a9f9532359">parse_result_kind</a> { <b>ERROR</b> = 0, 
+<b>RESULT</b>
+ }<tr class="memdesc:a2298ccede43aef91750e04a9f9532359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag type for parse results.  <a href="parser_8h.html#a2298ccede43aef91750e04a9f9532359">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a2298ccede43aef91750e04a9f9532359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac120dc0d7d0506f828a8a0cf45772c84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#ac120dc0d7d0506f828a8a0cf45772c84">parse</a> (char *source, <a class="el" href="grammar_8h.html#a7dbddd4f28f4cc2e035617caca4d4398">grammar_t</a> *grammar)</td></tr>
-<tr class="memdesc:ac120dc0d7d0506f828a8a0cf45772c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse a string using a PEG grammar.  <a href="#ac120dc0d7d0506f828a8a0cf45772c84">More...</a><br /></td></tr>
-<tr class="separator:ac120dc0d7d0506f828a8a0cf45772c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6d57cba6e1117327ebaf05d6742698f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#af6d57cba6e1117327ebaf05d6742698f">parse_error_init</a> (char *message)</td></tr>
+<tr class="memdesc:af6d57cba6e1117327ebaf05d6742698f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise a parse error structure with a message.  <a href="#af6d57cba6e1117327ebaf05d6742698f">More...</a><br /></td></tr>
+<tr class="separator:af6d57cba6e1117327ebaf05d6742698f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed83eda3e01fc00cd68510b91c538448"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#aed83eda3e01fc00cd68510b91c538448">parse_error_free</a> (<a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> *err)</td></tr>
+<tr class="memdesc:aed83eda3e01fc00cd68510b91c538448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a parse error structure.  <a href="#aed83eda3e01fc00cd68510b91c538448">More...</a><br /></td></tr>
+<tr class="separator:aed83eda3e01fc00cd68510b91c538448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2a08b54851d23a88157fcb5e9711bce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#ab2a08b54851d23a88157fcb5e9711bce">make_result</a> (<a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *result)</td></tr>
+<tr class="memdesc:ab2a08b54851d23a88157fcb5e9711bce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap a <a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> result into a <a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>.  <a href="#ab2a08b54851d23a88157fcb5e9711bce">More...</a><br /></td></tr>
+<tr class="separator:ab2a08b54851d23a88157fcb5e9711bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40ce5b6615b6786690b4da3e6588b8d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a40ce5b6615b6786690b4da3e6588b8d0">make_error</a> (<a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> *error)</td></tr>
+<tr class="memdesc:a40ce5b6615b6786690b4da3e6588b8d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap a <a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> error into a <a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>.  <a href="#a40ce5b6615b6786690b4da3e6588b8d0">More...</a><br /></td></tr>
+<tr class="separator:a40ce5b6615b6786690b4da3e6588b8d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03fa2d05cde1b714af5c639420f90b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#ab03fa2d05cde1b714af5c639420f90b3">parse_result_free</a> (<a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *result)</td></tr>
+<tr class="memdesc:ab03fa2d05cde1b714af5c639420f90b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Free a <a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>.  <a href="#ab03fa2d05cde1b714af5c639420f90b3">More...</a><br /></td></tr>
+<tr class="separator:ab03fa2d05cde1b714af5c639420f90b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e4b6f722041c337df7a057b5013dac1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a3e4b6f722041c337df7a057b5013dac1">is_error</a> (<a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *result)</td></tr>
+<tr class="memdesc:a3e4b6f722041c337df7a057b5013dac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if a result is an error value.  <a href="#a3e4b6f722041c337df7a057b5013dac1">More...</a><br /></td></tr>
+<tr class="separator:a3e4b6f722041c337df7a057b5013dac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a674b66ae6dce7c5aa6c1bc76152932e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a674b66ae6dce7c5aa6c1bc76152932e3">is_success</a> (<a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *result)</td></tr>
+<tr class="memdesc:a674b66ae6dce7c5aa6c1bc76152932e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if a result is a success value.  <a href="#a674b66ae6dce7c5aa6c1bc76152932e3">More...</a><br /></td></tr>
+<tr class="separator:a674b66ae6dce7c5aa6c1bc76152932e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01dd90f8736cebbd4a5f1439774bc731"><td class="memItemLeft" align="right" valign="top"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="parser_8h.html#a01dd90f8736cebbd4a5f1439774bc731">parse</a> (char *source, <a class="el" href="grammar_8h.html#a7dbddd4f28f4cc2e035617caca4d4398">grammar_t</a> *grammar)</td></tr>
+<tr class="memdesc:a01dd90f8736cebbd4a5f1439774bc731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse a string using a PEG grammar.  <a href="#a01dd90f8736cebbd4a5f1439774bc731">More...</a><br /></td></tr>
+<tr class="separator:a01dd90f8736cebbd4a5f1439774bc731"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ac120dc0d7d0506f828a8a0cf45772c84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac120dc0d7d0506f828a8a0cf45772c84">&#9670;&nbsp;</a></span>parse()</h2>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a2298ccede43aef91750e04a9f9532359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2298ccede43aef91750e04a9f9532359">&#9670;&nbsp;</a></span>parse_result_kind</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a>* parse </td>
+          <td class="memname">enum <a class="el" href="parser_8h.html#a2298ccede43aef91750e04a9f9532359">parse_result_kind</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tag type for parse results. </p>
+<p>Describes if the result of a parse is an error or holds some data. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a3e4b6f722041c337df7a057b5013dac1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e4b6f722041c337df7a057b5013dac1">&#9670;&nbsp;</a></span>is_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_error </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if a result is an error value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The result to check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a674b66ae6dce7c5aa6c1bc76152932e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a674b66ae6dce7c5aa6c1bc76152932e3">&#9670;&nbsp;</a></span>is_success()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_success </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if a result is a success value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The result to check </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a40ce5b6615b6786690b4da3e6588b8d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40ce5b6615b6786690b4da3e6588b8d0">&#9670;&nbsp;</a></span>make_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>* make_error </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> *&#160;</td>
+          <td class="paramname"><em>error</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrap a <a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> error into a <a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>. </p>
+<p>The <a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> passed is owned by the returned structure. The pointer returned from this function should only be freed using <a class="el" href="parser_8h.html#ab03fa2d05cde1b714af5c639420f90b3">parse_result_free</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">error</td><td>The error to be encapsulated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab2a08b54851d23a88157fcb5e9711bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a08b54851d23a88157fcb5e9711bce">&#9670;&nbsp;</a></span>make_result()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>* make_result </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wrap a <a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> result into a <a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>. </p>
+<p>The <a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> passed is owned by the returned structure. The pointer returned from this function should only be freed using <a class="el" href="parser_8h.html#ab03fa2d05cde1b714af5c639420f90b3">parse_result_free</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The successful result to be encapsulated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a01dd90f8736cebbd4a5f1439774bc731"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01dd90f8736cebbd4a5f1439774bc731">&#9670;&nbsp;</a></span>parse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>* parse </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>source</em>, </td>
@@ -107,11 +283,93 @@ Functions</h2></td></tr>
 
 <p>Parse a string using a PEG grammar. </p>
 <p>This function is <b>not</b> thread safe, as <code>grammar</code> is stored in a global variable for implementation purposes. If multiple threads need to call the parser, they should do so in mutual exclusion.</p>
-<p>Does not take ownership of <code>source</code> or <code>grammar</code>. They may both be used freely after a call to <a class="el" href="parser_8h.html#ac120dc0d7d0506f828a8a0cf45772c84">parse</a>.</p>
+<p>Does not take ownership of <code>source</code> or <code>grammar</code>. They may both be used freely after a call to <a class="el" href="parser_8h.html#a01dd90f8736cebbd4a5f1439774bc731">parse</a>.</p>
+<p>If a parse is successful, the object returned will be a SUCCESS variant with a <a class="el" href="parse__tree_8h.html#a98b8ccfcf7c866d4966a4985a7a0ec15">parse_t</a> member in its union. Similarly, if the parse fails then it will be an ERROR variant.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">source</td><td>A source text to be parsed </td></tr>
     <tr><td class="paramname">grammar</td><td>The grammar with which to parse the source </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aed83eda3e01fc00cd68510b91c538448"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed83eda3e01fc00cd68510b91c538448">&#9670;&nbsp;</a></span>parse_error_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parse_error_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a> *&#160;</td>
+          <td class="paramname"><em>err</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free a parse error structure. </p>
+<p>This should only be used on errors allocated with <a class="el" href="parser_8h.html#af6d57cba6e1117327ebaf05d6742698f">parse_error_init</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err</td><td>The error to be freed. May be <code>NULL</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af6d57cba6e1117327ebaf05d6742698f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d57cba6e1117327ebaf05d6742698f">&#9670;&nbsp;</a></span>parse_error_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="parser_8h.html#a1d5fa7d36a301f82de928c44a5ed09ce">parse_error_t</a>* parse_error_init </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialise a parse error structure with a message. </p>
+<p>The string passed is copied into the error structure. Errors allocated using this method should only be freed using <a class="el" href="parser_8h.html#aed83eda3e01fc00cd68510b91c538448">parse_error_free</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>String describing the error </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab03fa2d05cde1b714af5c639420f90b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab03fa2d05cde1b714af5c639420f90b3">&#9670;&nbsp;</a></span>parse_result_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parse_result_free </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a> *&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Free a <a class="el" href="parser_8h.html#a113b84eb4fe16fae19ae56da45b18ac5">parse_result_t</a>. </p>
+<p>This function frees the data stored in the result (whether it is a success or an error).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">result</td><td>The result to be freed. May be <code>NULL</code>. </td></tr>
   </table>
   </dd>
 </dl>

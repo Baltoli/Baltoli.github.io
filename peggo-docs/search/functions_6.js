@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['one_5for_5fmore',['one_or_more',['../expression_8h.html#ab404194ba5f60858c12a7912b2058215',1,'expression_construct.c']]],
-  ['optional',['optional',['../expression_8h.html#ae1937a9ba09b9fd7ab94501d2c308e92',1,'expression_construct.c']]]
+  ['log_5flevel',['log_level',['../log_8h.html#ad0bda40342d4b6a88536f87562ab92e8',1,'log.c']]],
+  ['log_5fredirect',['log_redirect',['../log_8h.html#a087e6ba99db9e94bae18aef4d6d94c42',1,'log.c']]]
 ];
