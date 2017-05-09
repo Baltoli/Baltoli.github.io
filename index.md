@@ -1,6 +1,29 @@
 ---
-# You don't need to edit this file, it's empty on purpose.
-# Edit theme's home layout instead if you wanna make some changes
-# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-layout: home
+layout: default
 ---
+
+TESLA allows you to make **temporal assertions** about your programs. Instead of
+being limited to its current state, you can make assertions about its _past_ and
+_future_ as well---letting you write safer programs as naturally as possible.
+
+With TESLA, you can make assertions like:
+> The function `access_control_check` previously returned `0`
+
+> The structure field `file_lock->held` is set to `false` in the future
+
+In normal programs, these properties are often asserted informally or not at
+all. With TESLA, they can be checked automatically at compile- or run-time.
+
+# Setup
+
+See the [installation guide](installation) for instructions on getting set up
+with TESLA. Once you've got it up and running, the [programming
+guide](programming) walks you through how to write a program with TESLA
+assertions.
+
+# Publications
+
+* [TESLA: Temporally Enhanced System Logic Assertions][tesla-paper]
+* Static Analysis for TESLA (_upcoming_)
+
+[tesla-paper]: https://www.cl.cam.ac.uk/research/security/ctsrd/pdfs/201404-eurosys2014-tesla.pdf
