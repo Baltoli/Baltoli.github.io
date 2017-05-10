@@ -36,11 +36,19 @@ $ cmake \
     -D LLVM_DIR=path/to/llvm \
     ..
 $ make
+$ make install
 ```
 
 The cmake option `LLVM_DIR` should point to the directory where LLVM has
 installed its CMake files. This will typically be the `lib/cmake/llvm/`
 subdirectory of the LLVM install directory.
+
+To install TESLA to a non-standard location, set `CMAKE_INSTALL_PREFIX` and run
+`make install`.
+
+Once you have TESLA installed, you should be able to run `tesla` to see a list
+of the available toolchain commands. The next step is to [write some TESLA
+assertions](programming).
 
 [protobuf]: https://developers.google.com/protocol-buffers/
 [z3]: https://github.com/Z3Prover/z3

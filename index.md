@@ -6,13 +6,35 @@ TESLA allows you to make **temporal assertions** about your programs. Instead of
 being limited to its current state, you can make assertions about its _past_ and
 _future_ as well---letting you write safer programs as naturally as possible.
 
-With TESLA, you can make assertions like:
-> The function `access_control_check` previously returned `0`
+With TESLA, you can make assertions like "The function `access_control_check`
+returned `0` before reading a file" or "The structure field `lock->held` is set
+to `false` in the future". In normal programs, these properties are often
+asserted informally or not at all. With TESLA, they can be checked automatically
+at compile- or run-time.
 
-> The structure field `file_lock->held` is set to `false` in the future
+# Examples
 
-In normal programs, these properties are often asserted informally or not at
-all. With TESLA, they can be checked automatically at compile- or run-time.
+```c
+char *read_sensitive_data() {
+  TESLA_WITHIN(main, previously(
+    access_control_check() == 0
+  ));
+  
+  char *data;
+  // perform sensitive data access
+  return data;
+}
+```
+
+```c
+void critical_section_begin(lock_t *lock) {
+  TESLA_WITHIN(main, eventually(
+    lock->held = false
+  ));
+
+  // do locked critical section work
+}
+```
 
 # Setup
 
