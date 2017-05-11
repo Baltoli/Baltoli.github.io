@@ -1,0 +1,89 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "TESLA\n\n\nTESLA allows you to make \ntemporal assertions\n about your programs. Instead of\nbeing limited to its current state, you can make assertions about its \npast\n and\n\nfuture\n as well---letting you write safer programs as naturally as possible.\n\n\nWith TESLA, you can make assertions like \"The function \naccess_control_check\n\nreturned \n0\n before reading a file\" or \"The structure field \nlock-\nheld\n is set\nto \nfalse\n in the future\". In normal programs, these properties are often\nasserted informally or not at all. With TESLA, they can be checked automatically\nat compile- or run-time.\n\n\nExamples\n\n\nchar *read_sensitive_data() {\n  TESLA_WITHIN(main, previously(\n    access_control_check() == 0\n  ));\n\n  char *data;\n  // perform sensitive data access\n  return data;\n}\n\n\n\n\nvoid critical_section_begin(lock_t *lock) {\n  TESLA_WITHIN(main, eventually(\n    lock-\nheld = false\n  ));\n\n  // do locked critical section work\n}\n\n\n\n\nSetup\n\n\nSee the \ninstallation guide\n for instructions on getting set up\nwith TESLA. Once you've got it up and running, the \nprogramming\nguide\n walks you through how to write a program with TESLA\nassertions.\n\n\nPublications\n\n\n\n\nTESLA: Temporally Enhanced System Logic Assertions\n\n\nStatic Analysis for TESLA (\nupcoming\n)", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#tesla", 
+            "text": "TESLA allows you to make  temporal assertions  about your programs. Instead of\nbeing limited to its current state, you can make assertions about its  past  and future  as well---letting you write safer programs as naturally as possible.  With TESLA, you can make assertions like \"The function  access_control_check \nreturned  0  before reading a file\" or \"The structure field  lock- held  is set\nto  false  in the future\". In normal programs, these properties are often\nasserted informally or not at all. With TESLA, they can be checked automatically\nat compile- or run-time.", 
+            "title": "TESLA"
+        }, 
+        {
+            "location": "/#examples", 
+            "text": "char *read_sensitive_data() {\n  TESLA_WITHIN(main, previously(\n    access_control_check() == 0\n  ));\n\n  char *data;\n  // perform sensitive data access\n  return data;\n}  void critical_section_begin(lock_t *lock) {\n  TESLA_WITHIN(main, eventually(\n    lock- held = false\n  ));\n\n  // do locked critical section work\n}", 
+            "title": "Examples"
+        }, 
+        {
+            "location": "/#setup", 
+            "text": "See the  installation guide  for instructions on getting set up\nwith TESLA. Once you've got it up and running, the  programming\nguide  walks you through how to write a program with TESLA\nassertions.", 
+            "title": "Setup"
+        }, 
+        {
+            "location": "/#publications", 
+            "text": "TESLA: Temporally Enhanced System Logic Assertions  Static Analysis for TESLA ( upcoming )", 
+            "title": "Publications"
+        }, 
+        {
+            "location": "/installation/", 
+            "text": "Installing TESLA\n\n\nCurrently TESLA has to be built from source (though package manager\ndistributions are in the works).\n\n\nDependencies\n\n\nTo build TESLA, you need:\n\n\n\n\nBuild system:\n\n\nCMake\n\n\nA C++14 compatible compiler (GCC 5+ or Clang 3.4+)\n\n\n\n\n\n\nTESLA dependencies:\n\n\nLLVM 4.0\n\n\nProtocol Buffers\n\n\nZ3\n\n\n\n\n\n\n\n\nThe TESLA dependencies don't need to be installed from source\nyou can get them\nfrom a package manager if that's easier.\n\n\nBuild Instructions\n\n\nOnce you've installed the dependencies, you can build TESLA as follows:\n\n\ngit clone \nhttp://github.com/cadets/tesla-static-analysis\n\ncd tesla-static-analysis\n\nmkdir build\ncd build\n\ncmake -D LLVM_DIR=\npath/to/llvm\n ..\nmake\nmake install\n\n\n\n\nThe CMake option \nLLVM_DIR\n should point to the directory where LLVM has\ninstalled its CMake files. This will typically be the \nlib/cmake/llvm/\n\nsubdirectory of the LLVM install directory.\n\n\nTo install TESLA to a non-standard location, set \nCMAKE_INSTALL_PREFIX\n and run\n\nmake install\n.\n\n\nOnce you have TESLA installed, you should be able to run \ntesla\n to see a list\nof the available toolchain commands. The next step is to \nwrite some TESLA\nassertions\n.", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/installation/#installing-tesla", 
+            "text": "Currently TESLA has to be built from source (though package manager\ndistributions are in the works).", 
+            "title": "Installing TESLA"
+        }, 
+        {
+            "location": "/installation/#dependencies", 
+            "text": "To build TESLA, you need:   Build system:  CMake  A C++14 compatible compiler (GCC 5+ or Clang 3.4+)    TESLA dependencies:  LLVM 4.0  Protocol Buffers  Z3     The TESLA dependencies don't need to be installed from source you can get them\nfrom a package manager if that's easier.", 
+            "title": "Dependencies"
+        }, 
+        {
+            "location": "/installation/#build-instructions", 
+            "text": "Once you've installed the dependencies, you can build TESLA as follows:  git clone  http://github.com/cadets/tesla-static-analysis \ncd tesla-static-analysis\n\nmkdir build\ncd build\n\ncmake -D LLVM_DIR= path/to/llvm  ..\nmake\nmake install  The CMake option  LLVM_DIR  should point to the directory where LLVM has\ninstalled its CMake files. This will typically be the  lib/cmake/llvm/ \nsubdirectory of the LLVM install directory.  To install TESLA to a non-standard location, set  CMAKE_INSTALL_PREFIX  and run make install .  Once you have TESLA installed, you should be able to run  tesla  to see a list\nof the available toolchain commands. The next step is to  write some TESLA\nassertions .", 
+            "title": "Build Instructions"
+        }, 
+        {
+            "location": "/programming/", 
+            "text": "Programming with TESLA\n\n\nThis page walks you through how to use TESLA. It explains how TESLA is\nimplemented (and some associated terminology), how to use the toolchain, then\nhow to start writing useful assertions about your programs.\n\n\nTESLA Basics\n\n\nTESLA is implemented as a set of tools that extend the traditional C compilation\nprocess. To write TESLA assertions, you need to add these tools to your\nbuild system and generate the TESLA intermediate products.\n\n\nIntermediate Products\n\n\nTo use TESLA, you need to generate some extra intermediate products during your\nbuild process. These products are:\n\n\n\n\nAssertions\n: the assertions you write about a program are parsed out and\n  written to external files in a structured format.\n\n\nManifest\n: assertions in one file can reference those written in other\n  files, so they need to be merged into one manifest file.\n\n\nLLVM IR\n: your code needs to be compiled to LLVM IR so that the TESLA tools\n  can analyse and modify it.\n\n\nInstrumented IR\n: the assertion manifest is used to add TESLA\n  instrumentation code to the compiled LLVM IR.\n\n\n\n\nA dependency graph between these products is shown in the graph below.\n\n\n\n\nToolchain\n\n\nTo generate TESLA intermediate products, you use the TESLA command-line tools.\nThese are:\n\n\n\n\ntesla analyse\n generates an assertion file (\n.tesla\n) from a C source file.\n\n\ntesla cat\n combines assertion files together into a manifest.\n\n\ntesla instrument\n uses a manifest to add instrumentation code to IR.\n\n\n\n\nYour C programs need to be compiled using \nclang\n 4.0. To generate LLVM IR from\na C source, use the flags \n-c -emit-llvm\n.\n\n\nExample\n\n\nIt's useful to work through a simple example to get a feel for the TESLA\ntoolchain and assertion language. The scenario we'll consider here is a \nmutual\nexclusion lock\n, with the aim of preventing deadlock.\n\n\nSetup\n\n\nThe first step is to establish the data structures and operations we'll be\nworking with. At its simplest, a mutual exclusion lock can be modelled by a\nstructure with a single boolean field:\n\n\n#include \nstdatomic.h\n\n#include \nstdbool.h\n\n\nstruct lock {\n  _Atomic(bool) held;\n};\n\n\n\n\nIf we have a lock, the only things we can do are to \nacquire\n or \nrelease\n it:\n\n\nbool lock_acquire(struct lock *l) {\n  bool f = false;\n  return atomic_compare_exchange_strong(\n(lock-\nheld), \nf, true);\n}\n\nvoid lock_release(struct lock *l) {\n  l-\nheld = false;\n}\n\n\n\n\nThese operations are thread safe (because they're written using the C11 atomics\nlibrary). If \nlock_acquire\n is called on a lock that's already held, it returns\n\nfalse\n. If we acquired the lock successfully, then it returns \ntrue\n.\n\n\nA First Assertion\n\n\nTo prevent deadlock in code that uses these locks, the property we'd like to\nassert is that a lock must eventually be released after it is acquired. The\nTESLA expression of this property is:\n\n\n#include \ntesla-macros.h\n\n\nbool lock_acquire(struct lock *l) {\n  TESLA_WITHIN(main, eventually(\n    call(lock_release(l))\n  ));\n\n  bool f = false;\n  return atomic_compare_exchange_strong(\n(lock-\nheld), \nf, true);\n}", 
+            "title": "Programming"
+        }, 
+        {
+            "location": "/programming/#programming-with-tesla", 
+            "text": "This page walks you through how to use TESLA. It explains how TESLA is\nimplemented (and some associated terminology), how to use the toolchain, then\nhow to start writing useful assertions about your programs.", 
+            "title": "Programming with TESLA"
+        }, 
+        {
+            "location": "/programming/#tesla-basics", 
+            "text": "TESLA is implemented as a set of tools that extend the traditional C compilation\nprocess. To write TESLA assertions, you need to add these tools to your\nbuild system and generate the TESLA intermediate products.", 
+            "title": "TESLA Basics"
+        }, 
+        {
+            "location": "/programming/#intermediate-products", 
+            "text": "To use TESLA, you need to generate some extra intermediate products during your\nbuild process. These products are:   Assertions : the assertions you write about a program are parsed out and\n  written to external files in a structured format.  Manifest : assertions in one file can reference those written in other\n  files, so they need to be merged into one manifest file.  LLVM IR : your code needs to be compiled to LLVM IR so that the TESLA tools\n  can analyse and modify it.  Instrumented IR : the assertion manifest is used to add TESLA\n  instrumentation code to the compiled LLVM IR.   A dependency graph between these products is shown in the graph below.", 
+            "title": "Intermediate Products"
+        }, 
+        {
+            "location": "/programming/#toolchain", 
+            "text": "To generate TESLA intermediate products, you use the TESLA command-line tools.\nThese are:   tesla analyse  generates an assertion file ( .tesla ) from a C source file.  tesla cat  combines assertion files together into a manifest.  tesla instrument  uses a manifest to add instrumentation code to IR.   Your C programs need to be compiled using  clang  4.0. To generate LLVM IR from\na C source, use the flags  -c -emit-llvm .", 
+            "title": "Toolchain"
+        }, 
+        {
+            "location": "/programming/#example", 
+            "text": "It's useful to work through a simple example to get a feel for the TESLA\ntoolchain and assertion language. The scenario we'll consider here is a  mutual\nexclusion lock , with the aim of preventing deadlock.", 
+            "title": "Example"
+        }, 
+        {
+            "location": "/programming/#setup", 
+            "text": "The first step is to establish the data structures and operations we'll be\nworking with. At its simplest, a mutual exclusion lock can be modelled by a\nstructure with a single boolean field:  #include  stdatomic.h \n#include  stdbool.h \n\nstruct lock {\n  _Atomic(bool) held;\n};  If we have a lock, the only things we can do are to  acquire  or  release  it:  bool lock_acquire(struct lock *l) {\n  bool f = false;\n  return atomic_compare_exchange_strong( (lock- held),  f, true);\n}\n\nvoid lock_release(struct lock *l) {\n  l- held = false;\n}  These operations are thread safe (because they're written using the C11 atomics\nlibrary). If  lock_acquire  is called on a lock that's already held, it returns false . If we acquired the lock successfully, then it returns  true .", 
+            "title": "Setup"
+        }, 
+        {
+            "location": "/programming/#a-first-assertion", 
+            "text": "To prevent deadlock in code that uses these locks, the property we'd like to\nassert is that a lock must eventually be released after it is acquired. The\nTESLA expression of this property is:  #include  tesla-macros.h \n\nbool lock_acquire(struct lock *l) {\n  TESLA_WITHIN(main, eventually(\n    call(lock_release(l))\n  ));\n\n  bool f = false;\n  return atomic_compare_exchange_strong( (lock- held),  f, true);\n}", 
+            "title": "A First Assertion"
+        }
+    ]
+}
