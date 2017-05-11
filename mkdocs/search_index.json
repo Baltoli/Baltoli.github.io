@@ -254,6 +254,16 @@
             "location": "/macros/#automaton", 
             "text": "", 
             "title": "automaton"
+        }, 
+        {
+            "location": "/static/", 
+            "text": "Static Analysis\n\n\nThere is ongoing work on proving TESLA assertions at compile time. When this\nwork is \nproduction ready\n, documentation on using it will be added to this\npage. Preliminary results are promising, indicating potentially significant\nperformance improvements.", 
+            "title": "Static Analysis"
+        }, 
+        {
+            "location": "/static/#static-analysis", 
+            "text": "There is ongoing work on proving TESLA assertions at compile time. When this\nwork is  production ready , documentation on using it will be added to this\npage. Preliminary results are promising, indicating potentially significant\nperformance improvements.", 
+            "title": "Static Analysis"
         }
     ]
 }
