@@ -1,5 +1,5 @@
 digraph compile {
-  graph[rankdir=LR];
+  graph[rankdir=LR, bgcolor=transparent];
 
   src       [shape=Mrecord,label="<s1> C Source|<s2> ...|<s3> C Source"];
   tesla     [shape=Mrecord,label="<s1> Assertions|<s2> ...|<s3> Assertions"];

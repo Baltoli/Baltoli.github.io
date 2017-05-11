@@ -1,18 +1,16 @@
----
-layout: default
----
+# Programming with TESLA
 
 This page walks you through how to use TESLA. It explains how TESLA is
 implemented (and some associated terminology), how to use the toolchain, then
 how to start writing useful assertions about your programs.
 
-# TESLA Basics
+## TESLA Basics
 
 TESLA is implemented as a set of tools that extend the traditional C compilation
 process. To write TESLA assertions, you need to add these tools to your
 build system and generate the TESLA intermediate products.
 
-## Intermediate Products
+### Intermediate Products
 
 To use TESLA, you need to generate some extra intermediate products during your
 build process. These products are:
@@ -28,9 +26,9 @@ build process. These products are:
 
 A dependency graph between these products is shown in the graph below.
 
-![](process.dot.svg){: .center-image }
+![](process.dot.svg)
 
-## Toolchain
+### Toolchain
 
 To generate TESLA intermediate products, you use the TESLA command-line tools.
 These are:
@@ -42,13 +40,13 @@ These are:
 Your C programs need to be compiled using `clang` 4.0. To generate LLVM IR from
 a C source, use the flags `-c -emit-llvm`.
 
-# Example
+## Example
 
 It's useful to work through a simple example to get a feel for the TESLA
 toolchain and assertion language. The scenario we'll consider here is a [mutual
 exclusion lock][mutex], with the aim of preventing deadlock.
 
-## Setup
+### Setup
 
 The first step is to establish the data structures and operations we'll be
 working with. At its simplest, a mutual exclusion lock can be modelled by a
@@ -80,7 +78,7 @@ These operations are thread safe (because they're written using the C11 atomics
 library). If `lock_acquire` is called on a lock that's already held, it returns
 `false`. If we acquired the lock successfully, then it returns `true`.
 
-## A First Assertion
+### A First Assertion
 
 To prevent deadlock in code that uses these locks, the property we'd like to
 assert is that a lock must eventually be released after it is acquired. The

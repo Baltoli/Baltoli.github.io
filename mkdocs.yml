@@ -1,0 +1,7 @@
+site_name: TESLA Documentation
+repo_url: http://github.com/cadets/tesla-static-analysis
+
+pages:
+  - Home: index.md
+  - Installation: installation.md
+  - Programming: programming.md

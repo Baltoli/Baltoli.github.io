@@ -8,7 +8,6 @@
  viewBox="0.00 0.00 556.17 143.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 139)">
 <title>compile</title>
-<polygon fill="white" stroke="none" points="-4,4 -4,-139 552.167,-139 552.167,4 -4,4"/>
 <!-- src -->
 <g id="node1" class="node"><title>src</title>
 <path fill="none" stroke="black" d="M12,-36.5C12,-36.5 55.7139,-36.5 55.7139,-36.5 61.7139,-36.5 67.7139,-42.5 67.7139,-48.5 67.7139,-48.5 67.7139,-90.5 67.7139,-90.5 67.7139,-96.5 61.7139,-102.5 55.7139,-102.5 55.7139,-102.5 12,-102.5 12,-102.5 6,-102.5 0,-96.5 0,-90.5 0,-90.5 0,-48.5 0,-48.5 0,-42.5 6,-36.5 12,-36.5"/>

@@ -1,6 +1,4 @@
----
-layout: default
----
+# TESLA
 
 TESLA allows you to make **temporal assertions** about your programs. Instead of
 being limited to its current state, you can make assertions about its _past_ and
@@ -12,7 +10,7 @@ to `false` in the future". In normal programs, these properties are often
 asserted informally or not at all. With TESLA, they can be checked automatically
 at compile- or run-time.
 
-# Examples
+## Examples
 
 ```c
 char *read_sensitive_data() {
@@ -36,14 +34,14 @@ void critical_section_begin(lock_t *lock) {
 }
 ```
 
-# Setup
+## Setup
 
 See the [installation guide](installation) for instructions on getting set up
 with TESLA. Once you've got it up and running, the [programming
 guide](programming) walks you through how to write a program with TESLA
 assertions.
 
-# Publications
+## Publications
 
 * [TESLA: Temporally Enhanced System Logic Assertions][tesla-paper]
 * Static Analysis for TESLA (_upcoming_)
