@@ -48,7 +48,7 @@
         {
             "location": "/programming/", 
             "text": "Programming with TESLA\n\n\nThis page walks you through how to use TESLA. It explains how TESLA is\nimplemented (and some associated terminology), how to use the toolchain, then\nhow to start writing useful assertions about your programs.\n\n\nTESLA Basics\n\n\nTESLA is implemented as a set of tools that extend the traditional C compilation\nprocess. To write TESLA assertions, you need to add these tools to your\nbuild system and generate the TESLA intermediate products.\n\n\nIntermediate Products\n\n\nTo use TESLA, you need to generate some extra intermediate products during your\nbuild process. These products are:\n\n\n\n\nAssertions\n: the assertions you write about a program are parsed out and\n  written to external files in a structured format.\n\n\nManifest\n: assertions in one file can reference those written in other\n  files, so they need to be merged into one manifest file.\n\n\nLLVM IR\n: your code needs to be compiled to LLVM IR so that the TESLA tools\n  can analyse and modify it.\n\n\nInstrumented IR\n: the assertion manifest is used to add TESLA\n  instrumentation code to the compiled LLVM IR.\n\n\n\n\nA dependency graph between these products is shown in the graph below.\n\n\n\n\nToolchain\n\n\nTo generate TESLA intermediate products, you use the TESLA command-line tools.\nThese are:\n\n\n\n\ntesla analyse\n generates an assertion file (\n.tesla\n) from a C source file.\n\n\ntesla cat\n combines assertion files together into a manifest.\n\n\ntesla instrument\n uses a manifest to add instrumentation code to IR.\n\n\n\n\nYour C programs need to be compiled using \nclang\n 4.0. To generate LLVM IR from\na C source, use the flags \n-c -emit-llvm\n.\n\n\nExample\n\n\nIt\ns useful to work through a simple example to get a feel for the TESLA\ntoolchain and assertion language. The scenario we\nll consider here is a \nmutual\nexclusion lock\n, with the aim of preventing deadlock.\n\n\nThe example code in this guide can be found \nhere\n.\n\n\nSetup\n\n\nThe first step is to establish the data structures and operations we\nll be\nworking with. At its simplest, a mutual exclusion lock can be modelled by a\nstructure with a single boolean field:\n\n\n#include \nstdatomic.h\n\n#include \nstdbool.h\n\n\nstruct lock {\n  _Atomic(bool) held;\n};\n\n\n\n\nIf we have a lock, the only things we can do are to \nacquire\n or \nrelease\n it:\n\n\nbool lock_acquire(struct lock *l) {\n  bool f = false;\n  return atomic_compare_exchange_strong(\n(lock-\nheld), \nf, true);\n}\n\nvoid lock_release(struct lock *l) {\n  l-\nheld = false;\n}\n\n\n\n\nThese operations are thread safe (because they\nre written using the C11 atomics\nlibrary). If \nlock_acquire\n is called on a lock that\ns already held, it returns\n\nfalse\n. If we acquired the lock successfully, then it returns \ntrue\n.\n\n\nThe simplest possible program that uses the lock is:\n\n\nint main(void) {\n  struct lock *l = malloc(sizeof(*lock));\n\n  lock_acquire(l);\n  lock_release(l);\n\n  free(lock);\n  return 0;\n}\n\n\n\n\nBecause of limitations in the TESLA assertion parser, it can\nt currently work\nwith stack-allocated structures. Memory has to be dynamically allocated instead.\n\n\nA First Assertion\n\n\nTo prevent deadlock in code that uses these locks, the property we\nd like to\nassert is that a lock must eventually be released after it is acquired. The\nTESLA expression of this property is:\n\n\n#include \ntesla-macros.h\n\n\nbool lock_acquire(struct lock *l) {\n  TESLA_WITHIN(main, eventually(\n    call(lock_release(l))\n  ));\n\n  bool f = false;\n  return atomic_compare_exchange_strong(\n(lock-\nheld), \nf, true);\n}\n\n\n\n\nThere\ns quite a few things going on here. \nTESLA_WITHIN\n is the primary starting\npoint for TESLA assertions. Its first argument should be a function that acts as\na \nbounding context\n, and the second argument is a TESLA assertion.\n\n\nA bounding context limits the scope of an assertion. When the context function\nis called, TESLA performs internal initialisation (and cleanup when it returns).\nIn this example, the bounding context is \nmain\n. For small programs this is OK,\nbut for larger programs it can lead to performance issues. Generally speaking,\nit\ns best to use the narrowest bound possible for your assertions.\n\n\nThe assertion itself uses the \neventually\n macro, which states that the body of\nthe macro (\ncall(lock_release(l))\n) happens at some point \nafter\n the assertion\nsite (i.e. the location of \nTESLA_WITHIN(...)\n).\n\n\nAltogether, the assertion states that \nduring each execution of \nmain\n, if the\nassertion site is reached, \nlock_release\n is eventually called with \nl\n as its\nargument\n. Note that if the assertion site is not reached, then the assertion\ndoes not fail.\n\n\nWe can compile this first example using:\n\n\nclang -O0 -c -emit-llvm locks.c -o locks.bc\ntesla analyse locks.c -o locks.tesla --\ntesla instrument -tesla-manifest locks.tesla locks.bc -o locks.instr.bc\nclang locks.instr.bc -o locks\n\n\n\n\nRunning \n./locks\n will produce no output, as expected\nthe usage of the lock is\ncorrect. If you modify the body of \nmain\n to acquire but not release \nl\n, then\nrunning the compiled executable will produce a TESLA crash:\n\n\nTESLA failure:\nIn automaton 'locks.c:21#0':\nTESLA_WITHIN(main, eventually(\n    call(lock_release(l))\n  ));\nInstance 1 is in state 2\nbut received event '--(main() == X (Callee) \ncleanup\n)--\n('NFA:5')'\n(causes transition in: [ (1:0x0 -\n 3:0x0 \nclean\n) (4:0x1 -\n 3:0x0 \nclean\n) ])\n\nlocks: TESLA: failure in 'locks.c:21#0' --(main() == X (Callee) \ncleanup\n)--\n('NFA:5'): bad transition\n\n\n\n\nDebugging\n\n\nThe TESLA crash in the previous section is rather difficult to understand. We\ncan get a better picture of it by using \ntesla print\n to print out a DOT\nformatted version of the TESLA internal automaton:\n\n\ntesla print -d -format=dot locks.tesla\n\n\n\n\nThis produces output that looks like this:\n\n\n\n\nIt\ns still not the easiest to understand, but we can get a better idea of why\nthe assertion failed\nthe automaton was in state 2, but received the \nmain() cleanup\n event. From state 2, we can see that (as expected), instead of reaching\nthe end of \nmain\n, we should have called \nlock_release\n.", 
-            "title": "Programming"
+            "title": "Tutorial"
         }, 
         {
             "location": "/programming/#programming-with-tesla", 
@@ -89,6 +89,171 @@
             "location": "/programming/#debugging", 
             "text": "The TESLA crash in the previous section is rather difficult to understand. We\ncan get a better picture of it by using  tesla print  to print out a DOT\nformatted version of the TESLA internal automaton:  tesla print -d -format=dot locks.tesla  This produces output that looks like this:   It s still not the easiest to understand, but we can get a better idea of why\nthe assertion failed the automaton was in state 2, but received the  main() cleanup  event. From state 2, we can see that (as expected), instead of reaching\nthe end of  main , we should have called  lock_release .", 
             "title": "Debugging"
+        }, 
+        {
+            "location": "/macros/", 
+            "text": "TESLA Macro Reference\n\n\nThis page provides a full reference to the TESLA assertion language and the\nconvenience macros provided to use it. All the macros documented on this page\nare available in \ntesla-macros.h\n.\n\n\nAssertion Site Declarations\n\n\nTESLA_ASSERT\n\n\nTESLA_GLOBAL\n\n\nTESLA_PERTHREAD\n\n\nTESLA_WITHIN\n\n\nTemporal Assertions\n\n\nTESLA_ASSERTION_SITE\n\n\nTIGNORE\n\n\nTSEQUENCE\n\n\ncall\n\n\neventually\n\n\npreviously\n\n\nreturnfrom\n\n\nModifiers\n\n\nANY\n\n\nbitmask\n\n\ncallee\n\n\ncaller\n\n\nconditional\n\n\noptional\n\n\nstrict\n\n\nflags\n\n\nSequences\n\n\nANY_REP\n\n\nATLEAST\n\n\nREPEAT\n\n\nUPTO\n\n\nExplicit Automata\n\n\nTESLA_STRUCT_AUTOMATON\n\n\ntesla_done\n\n\nautomaton", 
+            "title": "Macro Reference"
+        }, 
+        {
+            "location": "/macros/#tesla-macro-reference", 
+            "text": "This page provides a full reference to the TESLA assertion language and the\nconvenience macros provided to use it. All the macros documented on this page\nare available in  tesla-macros.h .", 
+            "title": "TESLA Macro Reference"
+        }, 
+        {
+            "location": "/macros/#assertion-site-declarations", 
+            "text": "", 
+            "title": "Assertion Site Declarations"
+        }, 
+        {
+            "location": "/macros/#tesla_assert", 
+            "text": "", 
+            "title": "TESLA_ASSERT"
+        }, 
+        {
+            "location": "/macros/#tesla_global", 
+            "text": "", 
+            "title": "TESLA_GLOBAL"
+        }, 
+        {
+            "location": "/macros/#tesla_perthread", 
+            "text": "", 
+            "title": "TESLA_PERTHREAD"
+        }, 
+        {
+            "location": "/macros/#tesla_within", 
+            "text": "", 
+            "title": "TESLA_WITHIN"
+        }, 
+        {
+            "location": "/macros/#temporal-assertions", 
+            "text": "", 
+            "title": "Temporal Assertions"
+        }, 
+        {
+            "location": "/macros/#tesla_assertion_site", 
+            "text": "", 
+            "title": "TESLA_ASSERTION_SITE"
+        }, 
+        {
+            "location": "/macros/#tignore", 
+            "text": "", 
+            "title": "TIGNORE"
+        }, 
+        {
+            "location": "/macros/#tsequence", 
+            "text": "", 
+            "title": "TSEQUENCE"
+        }, 
+        {
+            "location": "/macros/#call", 
+            "text": "", 
+            "title": "call"
+        }, 
+        {
+            "location": "/macros/#eventually", 
+            "text": "", 
+            "title": "eventually"
+        }, 
+        {
+            "location": "/macros/#previously", 
+            "text": "", 
+            "title": "previously"
+        }, 
+        {
+            "location": "/macros/#returnfrom", 
+            "text": "", 
+            "title": "returnfrom"
+        }, 
+        {
+            "location": "/macros/#modifiers", 
+            "text": "", 
+            "title": "Modifiers"
+        }, 
+        {
+            "location": "/macros/#any", 
+            "text": "", 
+            "title": "ANY"
+        }, 
+        {
+            "location": "/macros/#bitmask", 
+            "text": "", 
+            "title": "bitmask"
+        }, 
+        {
+            "location": "/macros/#callee", 
+            "text": "", 
+            "title": "callee"
+        }, 
+        {
+            "location": "/macros/#caller", 
+            "text": "", 
+            "title": "caller"
+        }, 
+        {
+            "location": "/macros/#conditional", 
+            "text": "", 
+            "title": "conditional"
+        }, 
+        {
+            "location": "/macros/#optional", 
+            "text": "", 
+            "title": "optional"
+        }, 
+        {
+            "location": "/macros/#strict", 
+            "text": "", 
+            "title": "strict"
+        }, 
+        {
+            "location": "/macros/#flags", 
+            "text": "", 
+            "title": "flags"
+        }, 
+        {
+            "location": "/macros/#sequences", 
+            "text": "", 
+            "title": "Sequences"
+        }, 
+        {
+            "location": "/macros/#any_rep", 
+            "text": "", 
+            "title": "ANY_REP"
+        }, 
+        {
+            "location": "/macros/#atleast", 
+            "text": "", 
+            "title": "ATLEAST"
+        }, 
+        {
+            "location": "/macros/#repeat", 
+            "text": "", 
+            "title": "REPEAT"
+        }, 
+        {
+            "location": "/macros/#upto", 
+            "text": "", 
+            "title": "UPTO"
+        }, 
+        {
+            "location": "/macros/#explicit-automata", 
+            "text": "", 
+            "title": "Explicit Automata"
+        }, 
+        {
+            "location": "/macros/#tesla_struct_automaton", 
+            "text": "", 
+            "title": "TESLA_STRUCT_AUTOMATON"
+        }, 
+        {
+            "location": "/macros/#tesla_done", 
+            "text": "", 
+            "title": "tesla_done"
+        }, 
+        {
+            "location": "/macros/#automaton", 
+            "text": "", 
+            "title": "automaton"
         }
     ]
 }

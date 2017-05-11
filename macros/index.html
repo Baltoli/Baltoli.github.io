@@ -4,27 +4,27 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
-        <title>TESLA Documentation</title>
-        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="./css/font-awesome-4.5.0.css" rel="stylesheet">
-        <link href="./css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="./css/highlight.css">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Macro Reference - TESLA Documentation</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
 	
-	<script src="./js/jquery-1.10.2.min.js"></script>
-        <script src="./js/bootstrap-3.0.3.min.js"></script>
-        <script src="./js/highlight.pack.js"></script> 
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
     </head>
 
-    <body class="homepage">
+    <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -38,29 +38,29 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href=".">TESLA Documentation</a>
+            <a class="navbar-brand" href="..">TESLA Documentation</a>
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href=".">Home</a>
+                    <li >
+                        <a href="..">Home</a>
                     </li>
                     <li >
-                        <a href="installation/">Installation</a>
+                        <a href="../installation/">Installation</a>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Programming <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
-    <a href="programming/">Tutorial</a>
+    <a href="../programming/">Tutorial</a>
 </li>
                             
-<li >
-    <a href="macros/">Macro Reference</a>
+<li class="active">
+    <a href="./">Macro Reference</a>
 </li>
                         </ul>
                     </li>
@@ -72,13 +72,13 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                    <li class="disabled">
-                        <a rel="next" >
+                    <li >
+                        <a rel="next" href="../programming/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li >
-                        <a rel="prev" href="installation/">
+                    <li class="disabled">
+                        <a rel="prev" >
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -95,63 +95,60 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#tesla">TESLA</a></li>
-            <li><a href="#examples">Examples</a></li>
-            <li><a href="#setup">Setup</a></li>
-            <li><a href="#publications">Publications</a></li>
+        <li class="main active"><a href="#tesla-macro-reference">TESLA Macro Reference</a></li>
+            <li><a href="#assertion-site-declarations">Assertion Site Declarations</a></li>
+            <li><a href="#temporal-assertions">Temporal Assertions</a></li>
+            <li><a href="#modifiers">Modifiers</a></li>
+            <li><a href="#sequences">Sequences</a></li>
+            <li><a href="#explicit-automata">Explicit Automata</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="tesla">TESLA</h1>
-<p>TESLA allows you to make <strong>temporal assertions</strong> about your programs. Instead of
-being limited to its current state, you can make assertions about its <em>past</em> and
-<em>future</em> as well&mdash;letting you write safer programs as naturally as possible.</p>
-<p>With TESLA, you can make assertions like &ldquo;The function <code>access_control_check</code>
-returned <code>0</code> before reading a file&rdquo; or &ldquo;The structure field <code>lock-&gt;held</code> is set
-to <code>false</code> in the future&rdquo;. In normal programs, these properties are often
-asserted informally or not at all. With TESLA, they can be checked automatically
-at compile- or run-time.</p>
-<h2 id="examples">Examples</h2>
-<pre><code class="c">char *read_sensitive_data() {
-  TESLA_WITHIN(main, previously(
-    access_control_check() == 0
-  ));
-
-  char *data;
-  // perform sensitive data access
-  return data;
-}
-</code></pre>
-
-<pre><code class="c">void critical_section_begin(lock_t *lock) {
-  TESLA_WITHIN(main, eventually(
-    lock-&gt;held = false
-  ));
-
-  // do locked critical section work
-}
-</code></pre>
-
-<h2 id="setup">Setup</h2>
-<p>See the <a href="./installation">installation guide</a> for instructions on getting set up
-with TESLA. Once you&rsquo;ve got it up and running, the <a href="./programming">programming
-guide</a> walks you through how to write a program with TESLA
-assertions.</p>
-<h2 id="publications">Publications</h2>
-<ul>
-<li><a href="https://www.cl.cam.ac.uk/research/security/ctsrd/pdfs/201404-eurosys2014-tesla.pdf">TESLA: Temporally Enhanced System Logic Assertions</a></li>
-<li>Static Analysis for TESLA (<em>upcoming</em>)</li>
-</ul></div>
+<h1 id="tesla-macro-reference">TESLA Macro Reference</h1>
+<p>This page provides a full reference to the TESLA assertion language and the
+convenience macros provided to use it. All the macros documented on this page
+are available in <code>&lt;tesla-macros.h&gt;</code>.</p>
+<h2 id="assertion-site-declarations">Assertion Site Declarations</h2>
+<h3 id="tesla_assert"><code>TESLA_ASSERT</code></h3>
+<h3 id="tesla_global"><code>TESLA_GLOBAL</code></h3>
+<h3 id="tesla_perthread"><code>TESLA_PERTHREAD</code></h3>
+<h3 id="tesla_within"><code>TESLA_WITHIN</code></h3>
+<h2 id="temporal-assertions">Temporal Assertions</h2>
+<h3 id="tesla_assertion_site"><code>TESLA_ASSERTION_SITE</code></h3>
+<h3 id="tignore"><code>TIGNORE</code></h3>
+<h3 id="tsequence"><code>TSEQUENCE</code></h3>
+<h3 id="call"><code>call</code></h3>
+<h3 id="eventually"><code>eventually</code></h3>
+<h3 id="previously"><code>previously</code></h3>
+<h3 id="returnfrom"><code>returnfrom</code></h3>
+<h2 id="modifiers">Modifiers</h2>
+<h3 id="any"><code>ANY</code></h3>
+<h3 id="bitmask"><code>bitmask</code></h3>
+<h3 id="callee"><code>callee</code></h3>
+<h3 id="caller"><code>caller</code></h3>
+<h3 id="conditional"><code>conditional</code></h3>
+<h3 id="optional"><code>optional</code></h3>
+<h3 id="strict"><code>strict</code></h3>
+<h3 id="flags"><code>flags</code></h3>
+<h2 id="sequences">Sequences</h2>
+<h3 id="any_rep"><code>ANY_REP</code></h3>
+<h3 id="atleast"><code>ATLEAST</code></h3>
+<h3 id="repeat"><code>REPEAT</code></h3>
+<h3 id="upto"><code>UPTO</code></h3>
+<h2 id="explicit-automata">Explicit Automata</h2>
+<h3 id="tesla_struct_automaton"><code>TESLA_STRUCT_AUTOMATON</code></h3>
+<h3 id="tesla_done"><code>tesla_done</code></h3>
+<h3 id="automaton"><code>automaton</code></h3></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script>var base_url = '.';</script>
-        <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
-        <script src="./js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -178,8 +175,3 @@ assertions.</p>
 
     </body>
 </html>
-
-<!--
-MkDocs version : 0.16.3
-Build Date UTC : 2017-05-11 12:55:21
--->
