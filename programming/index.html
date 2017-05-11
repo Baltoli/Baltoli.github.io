@@ -126,11 +126,12 @@ These are:</p>
 <p>Your C programs need to be compiled using <code>clang</code> 4.0. To generate LLVM IR from
 a C source, use the flags <code>-c -emit-llvm</code>.</p>
 <h2 id="example">Example</h2>
-<p>It's useful to work through a simple example to get a feel for the TESLA
-toolchain and assertion language. The scenario we'll consider here is a <a href="https://en.wikipedia.org/wiki/Mutual_exclusion">mutual
+<p>It&rsquo;s useful to work through a simple example to get a feel for the TESLA
+toolchain and assertion language. The scenario we&rsquo;ll consider here is a <a href="https://en.wikipedia.org/wiki/Mutual_exclusion">mutual
 exclusion lock</a>, with the aim of preventing deadlock.</p>
+<p>The example code in this guide can be found <a href="https://github.com/Baltoli/tesla-examples/blob/master/site/locks.c">here</a>.</p>
 <h3 id="setup">Setup</h3>
-<p>The first step is to establish the data structures and operations we'll be
+<p>The first step is to establish the data structures and operations we&rsquo;ll be
 working with. At its simplest, a mutual exclusion lock can be modelled by a
 structure with a single boolean field:</p>
 <pre><code class="c">#include &lt;stdatomic.h&gt;
@@ -152,11 +153,25 @@ void lock_release(struct lock *l) {
 }
 </code></pre>
 
-<p>These operations are thread safe (because they're written using the C11 atomics
-library). If <code>lock_acquire</code> is called on a lock that's already held, it returns
+<p>These operations are thread safe (because they&rsquo;re written using the C11 atomics
+library). If <code>lock_acquire</code> is called on a lock that&rsquo;s already held, it returns
 <code>false</code>. If we acquired the lock successfully, then it returns <code>true</code>.</p>
+<p>The simplest possible program that uses the lock is:</p>
+<pre><code class="c">int main(void) {
+  struct lock *l = malloc(sizeof(*lock));
+
+  lock_acquire(l);
+  lock_release(l);
+
+  free(lock);
+  return 0;
+}
+</code></pre>
+
+<p>Because of limitations in the TESLA assertion parser, it can&rsquo;t currently work
+with stack-allocated structures. Memory has to be dynamically allocated instead.</p>
 <h3 id="a-first-assertion">A First Assertion</h3>
-<p>To prevent deadlock in code that uses these locks, the property we'd like to
+<p>To prevent deadlock in code that uses these locks, the property we&rsquo;d like to
 assert is that a lock must eventually be released after it is acquired. The
 TESLA expression of this property is:</p>
 <pre><code class="c">#include &lt;tesla-macros.h&gt;
@@ -169,7 +184,57 @@ bool lock_acquire(struct lock *l) {
   bool f = false;
   return atomic_compare_exchange_strong(&amp;(lock-&gt;held), &amp;f, true);
 }
-</code></pre></div>
+</code></pre>
+
+<p>There&rsquo;s quite a few things going on here. <code>TESLA_WITHIN</code> is the primary starting
+point for TESLA assertions. Its first argument should be a function that acts as
+a &ldquo;bounding context&rdquo;, and the second argument is a TESLA assertion.</p>
+<p>A bounding context limits the scope of an assertion. When the context function
+is called, TESLA performs internal initialisation (and cleanup when it returns).
+In this example, the bounding context is <code>main</code>. For small programs this is OK,
+but for larger programs it can lead to performance issues. Generally speaking,
+it&rsquo;s best to use the narrowest bound possible for your assertions.</p>
+<p>The assertion itself uses the <code>eventually</code> macro, which states that the body of
+the macro (<code>call(lock_release(l))</code>) happens at some point <em>after</em> the assertion
+site (i.e. the location of <code>TESLA_WITHIN(...)</code>).</p>
+<p>Altogether, the assertion states that &ldquo;during each execution of <code>main</code>, if the
+assertion site is reached, <code>lock_release</code> is eventually called with <code>l</code> as its
+argument&rdquo;. Note that if the assertion site is not reached, then the assertion
+does not fail.</p>
+<p>We can compile this first example using:</p>
+<pre><code class="shell">clang -O0 -c -emit-llvm locks.c -o locks.bc
+tesla analyse locks.c -o locks.tesla --
+tesla instrument -tesla-manifest locks.tesla locks.bc -o locks.instr.bc
+clang locks.instr.bc -o locks
+</code></pre>
+
+<p>Running <code>./locks</code> will produce no output, as expected&mdash;the usage of the lock is
+correct. If you modify the body of <code>main</code> to acquire but not release <code>l</code>, then
+running the compiled executable will produce a TESLA crash:</p>
+<pre><code>TESLA failure:
+In automaton 'locks.c:21#0':
+TESLA_WITHIN(main, eventually(
+    call(lock_release(l))
+  ));
+Instance 1 is in state 2
+but received event '--(main() == X (Callee) &lt;&lt;cleanup&gt;&gt;)--&gt;('NFA:5')'
+(causes transition in: [ (1:0x0 -&gt; 3:0x0 &lt;clean&gt;) (4:0x1 -&gt; 3:0x0 &lt;clean&gt;) ])
+
+locks: TESLA: failure in 'locks.c:21#0' --(main() == X (Callee) &lt;&lt;cleanup&gt;&gt;)--&gt;('NFA:5'): bad transition
+</code></pre>
+
+<h3 id="debugging">Debugging</h3>
+<p>The TESLA crash in the previous section is rather difficult to understand. We
+can get a better picture of it by using <code>tesla print</code> to print out a DOT
+formatted version of the TESLA internal automaton:</p>
+<pre><code class="shell">tesla print -d -format=dot locks.tesla
+</code></pre>
+
+<p>This produces output that looks like this:</p>
+<p><img alt="" src="../auto.dot.svg" /></p>
+<p>It&rsquo;s still not the easiest to understand, but we can get a better idea of why
+the assertion failed&mdash;the automaton was in state 2, but received the <code>main() cleanup</code> event. From state 2, we can see that (as expected), instead of reaching
+the end of <code>main</code>, we should have called <code>lock_release</code>.</p></div>
         </div>
 
         <footer class="col-md-12">

@@ -1,8 +1,8 @@
-PRODUCTS = process.dot.svg
+PRODUCTS = process.dot.svg auto.dot.svg
 
 all: $(PRODUCTS)
 
-process.dot.svg: process.dot
+%.dot.svg: %.dot
 	dot -O -Tsvg $<
 
 clean:
