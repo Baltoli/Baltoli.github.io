@@ -264,6 +264,111 @@
             "location": "/static/#static-analysis", 
             "text": "There is ongoing work on proving TESLA assertions at compile time. When this\nwork is  production ready , documentation on using it will be added to this\npage. Preliminary results are promising, indicating potentially significant\nperformance improvements.", 
             "title": "Static Analysis"
+        }, 
+        {
+            "location": "/commands/", 
+            "text": "TESLA Commands\n\n\nanalyse\n\n\nSummary\n\n\nExtracts TESLA assertions from a program and output them to an assertion manifest\nfile. Takes a single C source file as an argument, and produces a TESLA\nassertion file in either binary or textual format.\n\n\nBecause \ntesla analyse\n is implemented as a \nClang tool\n, it needs\nto be given the compilation options for the file it\ns analysing (so that it can\nproperly handle preprocessor definitions and other program features). Currently,\nthese options need to be given at the command line\nusing\n\ncompile_commands.json\n is not yet supported.\n\n\nUsage\n\n\ntesla analyse [options] \nsource\n -o \noutput\n -- [compilation options]\n\n\n\n\nNote that even if your code has no specific command line options, you must still\nterminate the list of arguments to \ntesla analyse\n with \n--\n.\n\n\nOptions\n\n\n\n\n-S\n: generate textual TESLA output (rather than binary) for debugging\n  purposes.\n\n\n\n\ncat\n\n\nSummary\n\n\nCombine multiple TESLA assertion files together into a single file for\ninstrumentation.\n\n\nTakes all the assertion files as positional arguments, and a single output file\nas a named argument. If no output is specified, the resulting assertion manifest\nis output on \nstdout\n. The output of \ntesla cat\n is always a textual manifest\n(rather than binary).\n\n\nBecause each source file produces its own assertion file, which can reference\nautomata defined in other files, we need to combine them together (while also\nchecking for consistency\nif two files both define an automata, the definitions\nneed to be the same).\n\n\nUsage\n\n\ntesla cat \ninput ...\n -o \noutput\n\n\n\n\n\ninstrument\n\n\nSummary\n\n\nUsage\n\n\nOptions\n\n\nprint\n\n\nSummary\n\n\nUsage\n\n\nOptions\n\n\nstatic\n\n\nSummary\n\n\nUsage\n\n\nOptions", 
+            "title": "Command Reference"
+        }, 
+        {
+            "location": "/commands/#tesla-commands", 
+            "text": "", 
+            "title": "TESLA Commands"
+        }, 
+        {
+            "location": "/commands/#analyse", 
+            "text": "", 
+            "title": "analyse"
+        }, 
+        {
+            "location": "/commands/#summary", 
+            "text": "Extracts TESLA assertions from a program and output them to an assertion manifest\nfile. Takes a single C source file as an argument, and produces a TESLA\nassertion file in either binary or textual format.  Because  tesla analyse  is implemented as a  Clang tool , it needs\nto be given the compilation options for the file it s analysing (so that it can\nproperly handle preprocessor definitions and other program features). Currently,\nthese options need to be given at the command line using compile_commands.json  is not yet supported.", 
+            "title": "Summary"
+        }, 
+        {
+            "location": "/commands/#usage", 
+            "text": "tesla analyse [options]  source  -o  output  -- [compilation options]  Note that even if your code has no specific command line options, you must still\nterminate the list of arguments to  tesla analyse  with  -- .", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/commands/#options", 
+            "text": "-S : generate textual TESLA output (rather than binary) for debugging\n  purposes.", 
+            "title": "Options"
+        }, 
+        {
+            "location": "/commands/#cat", 
+            "text": "", 
+            "title": "cat"
+        }, 
+        {
+            "location": "/commands/#summary_1", 
+            "text": "Combine multiple TESLA assertion files together into a single file for\ninstrumentation.  Takes all the assertion files as positional arguments, and a single output file\nas a named argument. If no output is specified, the resulting assertion manifest\nis output on  stdout . The output of  tesla cat  is always a textual manifest\n(rather than binary).  Because each source file produces its own assertion file, which can reference\nautomata defined in other files, we need to combine them together (while also\nchecking for consistency if two files both define an automata, the definitions\nneed to be the same).", 
+            "title": "Summary"
+        }, 
+        {
+            "location": "/commands/#usage_1", 
+            "text": "tesla cat  input ...  -o  output", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/commands/#instrument", 
+            "text": "", 
+            "title": "instrument"
+        }, 
+        {
+            "location": "/commands/#summary_2", 
+            "text": "", 
+            "title": "Summary"
+        }, 
+        {
+            "location": "/commands/#usage_2", 
+            "text": "", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/commands/#options_1", 
+            "text": "", 
+            "title": "Options"
+        }, 
+        {
+            "location": "/commands/#print", 
+            "text": "", 
+            "title": "print"
+        }, 
+        {
+            "location": "/commands/#summary_3", 
+            "text": "", 
+            "title": "Summary"
+        }, 
+        {
+            "location": "/commands/#usage_3", 
+            "text": "", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/commands/#options_2", 
+            "text": "", 
+            "title": "Options"
+        }, 
+        {
+            "location": "/commands/#static", 
+            "text": "", 
+            "title": "static"
+        }, 
+        {
+            "location": "/commands/#summary_4", 
+            "text": "", 
+            "title": "Summary"
+        }, 
+        {
+            "location": "/commands/#usage_4", 
+            "text": "", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/commands/#options_3", 
+            "text": "", 
+            "title": "Options"
         }
     ]
 }

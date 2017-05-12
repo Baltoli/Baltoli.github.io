@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Macro Reference - TESLA Documentation</title>
+        <title>Command Reference - TESLA Documentation</title>
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -59,16 +59,16 @@
     <a href="../programming/">Tutorial</a>
 </li>
                             
-<li class="active">
-    <a href="./">Macro Reference</a>
+<li >
+    <a href="../macros/">Macro Reference</a>
 </li>
                             
 <li >
     <a href="../static/">Static Analysis</a>
 </li>
                             
-<li >
-    <a href="../commands/">Command Reference</a>
+<li class="active">
+    <a href="./">Command Reference</a>
 </li>
                         </ul>
                     </li>
@@ -81,12 +81,12 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../programming/">
+                        <a rel="next" href="../static/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li >
-                        <a rel="prev" href="../static/">
+                    <li class="disabled">
+                        <a rel="prev" >
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -103,51 +103,66 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#tesla-macro-reference">TESLA Macro Reference</a></li>
-            <li><a href="#assertion-site-declarations">Assertion Site Declarations</a></li>
-            <li><a href="#temporal-assertions">Temporal Assertions</a></li>
-            <li><a href="#modifiers">Modifiers</a></li>
-            <li><a href="#sequences">Sequences</a></li>
-            <li><a href="#explicit-automata">Explicit Automata</a></li>
+        <li class="main active"><a href="#tesla-commands">TESLA Commands</a></li>
+            <li><a href="#analyse">analyse</a></li>
+            <li><a href="#cat">cat</a></li>
+            <li><a href="#instrument">instrument</a></li>
+            <li><a href="#print">print</a></li>
+            <li><a href="#static">static</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="tesla-macro-reference">TESLA Macro Reference</h1>
-<p>This page provides a full reference to the TESLA assertion language and the
-convenience macros provided to use it. All the macros documented on this page
-are available in <code>&lt;tesla-macros.h&gt;</code>.</p>
-<h2 id="assertion-site-declarations">Assertion Site Declarations</h2>
-<h3 id="tesla_assert"><code>TESLA_ASSERT</code></h3>
-<h3 id="tesla_global"><code>TESLA_GLOBAL</code></h3>
-<h3 id="tesla_perthread"><code>TESLA_PERTHREAD</code></h3>
-<h3 id="tesla_within"><code>TESLA_WITHIN</code></h3>
-<h2 id="temporal-assertions">Temporal Assertions</h2>
-<h3 id="tesla_assertion_site"><code>TESLA_ASSERTION_SITE</code></h3>
-<h3 id="tignore"><code>TIGNORE</code></h3>
-<h3 id="tsequence"><code>TSEQUENCE</code></h3>
-<h3 id="call"><code>call</code></h3>
-<h3 id="eventually"><code>eventually</code></h3>
-<h3 id="previously"><code>previously</code></h3>
-<h3 id="returnfrom"><code>returnfrom</code></h3>
-<h2 id="modifiers">Modifiers</h2>
-<h3 id="any"><code>ANY</code></h3>
-<h3 id="bitmask"><code>bitmask</code></h3>
-<h3 id="callee"><code>callee</code></h3>
-<h3 id="caller"><code>caller</code></h3>
-<h3 id="conditional"><code>conditional</code></h3>
-<h3 id="optional"><code>optional</code></h3>
-<h3 id="strict"><code>strict</code></h3>
-<h3 id="flags"><code>flags</code></h3>
-<h2 id="sequences">Sequences</h2>
-<h3 id="any_rep"><code>ANY_REP</code></h3>
-<h3 id="atleast"><code>ATLEAST</code></h3>
-<h3 id="repeat"><code>REPEAT</code></h3>
-<h3 id="upto"><code>UPTO</code></h3>
-<h2 id="explicit-automata">Explicit Automata</h2>
-<h3 id="tesla_struct_automaton"><code>TESLA_STRUCT_AUTOMATON</code></h3>
-<h3 id="tesla_done"><code>tesla_done</code></h3>
-<h3 id="automaton"><code>automaton</code></h3></div>
+<h1 id="tesla-commands">TESLA Commands</h1>
+<h2 id="analyse"><code>analyse</code></h2>
+<h3 id="summary">Summary</h3>
+<p>Extracts TESLA assertions from a program and output them to an assertion manifest
+file. Takes a single C source file as an argument, and produces a TESLA
+assertion file in either binary or textual format.</p>
+<p>Because <code>tesla analyse</code> is implemented as a <a href="https://clang.llvm.org/docs/LibTooling.html">Clang tool</a>, it needs
+to be given the compilation options for the file it&rsquo;s analysing (so that it can
+properly handle preprocessor definitions and other program features). Currently,
+these options need to be given at the command line&mdash;using
+<code>compile_commands.json</code> is not yet supported.</p>
+<h3 id="usage">Usage</h3>
+<pre><code class="shell">tesla analyse [options] &lt;source&gt; -o &lt;output&gt; -- [compilation options]
+</code></pre>
+
+<p>Note that even if your code has no specific command line options, you must still
+terminate the list of arguments to <code>tesla analyse</code> with <code>--</code>.</p>
+<h3 id="options">Options</h3>
+<ul>
+<li><code>-S</code>: generate textual TESLA output (rather than binary) for debugging
+  purposes.</li>
+</ul>
+<h2 id="cat"><code>cat</code></h2>
+<h3 id="summary_1">Summary</h3>
+<p>Combine multiple TESLA assertion files together into a single file for
+instrumentation.</p>
+<p>Takes all the assertion files as positional arguments, and a single output file
+as a named argument. If no output is specified, the resulting assertion manifest
+is output on <code>stdout</code>. The output of <code>tesla cat</code> is always a textual manifest
+(rather than binary).</p>
+<p>Because each source file produces its own assertion file, which can reference
+automata defined in other files, we need to combine them together (while also
+checking for consistency&mdash;if two files both define an automata, the definitions
+need to be the same).</p>
+<h3 id="usage_1">Usage</h3>
+<pre><code class="shell">tesla cat &lt;input ...&gt; -o &lt;output&gt;
+</code></pre>
+
+<h2 id="instrument"><code>instrument</code></h2>
+<h3 id="summary_2">Summary</h3>
+<h3 id="usage_2">Usage</h3>
+<h3 id="options_1">Options</h3>
+<h2 id="print"><code>print</code></h2>
+<h3 id="summary_3">Summary</h3>
+<h3 id="usage_3">Usage</h3>
+<h3 id="options_2">Options</h3>
+<h2 id="static"><code>static</code></h2>
+<h3 id="summary_4">Summary</h3>
+<h3 id="usage_4">Usage</h3>
+<h3 id="options_3">Options</h3></div>
         </div>
 
         <footer class="col-md-12">

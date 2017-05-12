@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-05-11</lastmod>
+     <lastmod>2017-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +12,7 @@
     
     <url>
      <loc>/installation/</loc>
-     <lastmod>2017-05-11</lastmod>
+     <lastmod>2017-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -21,19 +21,25 @@
         
     <url>
      <loc>/programming/</loc>
-     <lastmod>2017-05-11</lastmod>
+     <lastmod>2017-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/macros/</loc>
-     <lastmod>2017-05-11</lastmod>
+     <lastmod>2017-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/static/</loc>
-     <lastmod>2017-05-11</lastmod>
+     <lastmod>2017-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/commands/</loc>
+     <lastmod>2017-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
