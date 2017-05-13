@@ -267,7 +267,7 @@
         }, 
         {
             "location": "/commands/", 
-            "text": "TESLA Commands\n\n\nanalyse\n\n\nSummary\n\n\nExtracts TESLA assertions from a program and output them to an assertion manifest\nfile. Takes a single C source file as an argument, and produces a TESLA\nassertion file in either binary or textual format.\n\n\nBecause \ntesla analyse\n is implemented as a \nClang tool\n, it needs\nto be given the compilation options for the file it\ns analysing (so that it can\nproperly handle preprocessor definitions and other program features). Currently,\nthese options need to be given at the command line\nusing\n\ncompile_commands.json\n is not yet supported.\n\n\nUsage\n\n\ntesla analyse [options] \nsource\n -o \noutput\n -- [compilation options]\n\n\n\n\nNote that even if your code has no specific command line options, you must still\nterminate the list of arguments to \ntesla analyse\n with \n--\n.\n\n\nOptions\n\n\n\n\n-S\n: generate textual TESLA output (rather than binary) for debugging\n  purposes.\n\n\n\n\ncat\n\n\nSummary\n\n\nCombine multiple TESLA assertion files together into a single file for\ninstrumentation.\n\n\nTakes all the assertion files as positional arguments, and a single output file\nas a named argument. If no output is specified, the resulting assertion manifest\nis output on \nstdout\n. The output of \ntesla cat\n is always a textual manifest\n(rather than binary).\n\n\nBecause each source file produces its own assertion file, which can reference\nautomata defined in other files, we need to combine them together (while also\nchecking for consistency\nif two files both define an automata, the definitions\nneed to be the same).\n\n\nUsage\n\n\ntesla cat \ninput ...\n -o \noutput\n\n\n\n\n\ninstrument\n\n\nSummary\n\n\nUsage\n\n\nOptions\n\n\nprint\n\n\nSummary\n\n\nUsage\n\n\nOptions\n\n\nstatic\n\n\nSummary\n\n\nUsage\n\n\nOptions", 
+            "text": "TESLA Commands\n\n\nanalyse\n\n\nSummary\n\n\nExtracts TESLA assertions from a program and output them to an assertion manifest\nfile. Takes a single C source file as an argument, and produces a TESLA\nassertion file in either binary or textual format.\n\n\nBecause \ntesla analyse\n is implemented as a \nClang tool\n, it needs\nto be given the compilation options for the file it\ns analysing (so that it can\nproperly handle preprocessor definitions and other program features). Currently,\nthese options need to be given at the command line\nusing\n\ncompile_commands.json\n is not yet supported.\n\n\nUsage\n\n\ntesla analyse [options] \nsource\n -o \noutput\n -- [compilation options]\n\n\n\n\nNote that even if your code has no specific command line options, you must still\nterminate the list of arguments to \ntesla analyse\n with \n--\n.\n\n\nOptions\n\n\n\n\n-S\n: generate textual TESLA output (rather than binary) for debugging\n  purposes.\n\n\n\n\ncat\n\n\nSummary\n\n\nCombine multiple TESLA assertion files together into a single file for\ninstrumentation.\n\n\nTakes all the assertion files as positional arguments, and a single output file\nas a named argument. If no output is specified, the resulting assertion manifest\nis output on \nstdout\n. The output of \ntesla cat\n is always a textual manifest\n(rather than binary).\n\n\nBecause each source file produces its own assertion file, which can reference\nautomata defined in other files, we need to combine them together (while also\nchecking for consistency\nif two files both define an automata, the definitions\nneed to be the same).\n\n\nUsage\n\n\ntesla cat \ninput ...\n -o \noutput\n\n\n\n\n\ninstrument\n\n\nSummary\n\n\nAdd TESLA instrumentation code to LLVM IR.\n\n\nThe assertion code to be added is generated from a TESLA assertion manifest, and\nreplaces instrumentation hooks.\n\n\nUsage\n\n\ntesla instrument -tesla-manifest \nmanifest\n \nIR file\n -o \noutput\n\n\n\n\n\nOptions\n\n\n\n\n-S\n: print textual LLVM IR instead of binary. If this is specified, then \n-o\n\n  can be omitted and the output will go to \nstdout\n.\n\n\n\n\nprint\n\n\nSummary\n\n\nPrint TESLA automata information from an assertion manifest.\n\n\nSupports multiple formats for the printed information.\n\n\nUsage\n\n\ntesla print [options] \ninput file\n\n\n\n\n\nOptions\n\n\n\n\nOutput formats (\n-format=\n):\n\n\ndot\n: GraphViz dot\n\n\ninstr\n: instrumentation points\n\n\nnames\n: automata names\n\n\nsource\n: automata definitions from the original source code\n\n\nsummary\n: succinct summaries\n\n\ntext\n: textual automata representations\n\n\n\n\n\n\nAutomata determinism:\n\n\n-r\n: raw (unlinked) NFA\n\n\n-n\n: NFA\n\n\n-d\n: DFA\n\n\n\n\n\n\n\n\nstatic\n\n\nSummary\n\n\nPerform static analysis on an assertion manifest, producing a new manifest with\nsafe assertions deleted.\n\n\nUsage\n\n\ntesla static [options] \nmanifest\n \nIR\n -o \noutput\n\n\n\n\n\nOptions\n\n\n\n\nPass selection:\n\n\n-mc\n: Run the TESLA model checker.\n\n\n\n\n\n\nModel checker options:\n\n\n-bound=\nint\n: set the maximum length of finite traces to examine\n  (measured in the number of basic blocks).\n\n\n-unroll=\nint\n: set the maximum function call inlining depth. If your\n  call graph is deeper than this value, information can be lost at the\n  inlining phase.\n\n\n-mem2reg\n: run the LLVM memory to register promotion pass before the\n  model checker. This can make the checker run a lot faster, but loses\n  information about variable names. Some assertions will be incorrectly\n  marked as unsafe if using this option.", 
             "title": "Command Reference"
         }, 
         {
@@ -317,17 +317,17 @@
         }, 
         {
             "location": "/commands/#summary_2", 
-            "text": "", 
+            "text": "Add TESLA instrumentation code to LLVM IR.  The assertion code to be added is generated from a TESLA assertion manifest, and\nreplaces instrumentation hooks.", 
             "title": "Summary"
         }, 
         {
             "location": "/commands/#usage_2", 
-            "text": "", 
+            "text": "tesla instrument -tesla-manifest  manifest   IR file  -o  output", 
             "title": "Usage"
         }, 
         {
             "location": "/commands/#options_1", 
-            "text": "", 
+            "text": "-S : print textual LLVM IR instead of binary. If this is specified, then  -o \n  can be omitted and the output will go to  stdout .", 
             "title": "Options"
         }, 
         {
@@ -337,17 +337,17 @@
         }, 
         {
             "location": "/commands/#summary_3", 
-            "text": "", 
+            "text": "Print TESLA automata information from an assertion manifest.  Supports multiple formats for the printed information.", 
             "title": "Summary"
         }, 
         {
             "location": "/commands/#usage_3", 
-            "text": "", 
+            "text": "tesla print [options]  input file", 
             "title": "Usage"
         }, 
         {
             "location": "/commands/#options_2", 
-            "text": "", 
+            "text": "Output formats ( -format= ):  dot : GraphViz dot  instr : instrumentation points  names : automata names  source : automata definitions from the original source code  summary : succinct summaries  text : textual automata representations    Automata determinism:  -r : raw (unlinked) NFA  -n : NFA  -d : DFA", 
             "title": "Options"
         }, 
         {
@@ -357,17 +357,17 @@
         }, 
         {
             "location": "/commands/#summary_4", 
-            "text": "", 
+            "text": "Perform static analysis on an assertion manifest, producing a new manifest with\nsafe assertions deleted.", 
             "title": "Summary"
         }, 
         {
             "location": "/commands/#usage_4", 
-            "text": "", 
+            "text": "tesla static [options]  manifest   IR  -o  output", 
             "title": "Usage"
         }, 
         {
             "location": "/commands/#options_3", 
-            "text": "", 
+            "text": "Pass selection:  -mc : Run the TESLA model checker.    Model checker options:  -bound= int : set the maximum length of finite traces to examine\n  (measured in the number of basic blocks).  -unroll= int : set the maximum function call inlining depth. If your\n  call graph is deeper than this value, information can be lost at the\n  inlining phase.  -mem2reg : run the LLVM memory to register promotion pass before the\n  model checker. This can make the checker run a lot faster, but loses\n  information about variable names. Some assertions will be incorrectly\n  marked as unsafe if using this option.", 
             "title": "Options"
         }
     ]

@@ -153,16 +153,71 @@ need to be the same).</p>
 
 <h2 id="instrument"><code>instrument</code></h2>
 <h3 id="summary_2">Summary</h3>
+<p>Add TESLA instrumentation code to LLVM IR.</p>
+<p>The assertion code to be added is generated from a TESLA assertion manifest, and
+replaces instrumentation hooks.</p>
 <h3 id="usage_2">Usage</h3>
+<pre><code class="shell">tesla instrument -tesla-manifest &lt;manifest&gt; &lt;IR file&gt; -o &lt;output&gt;
+</code></pre>
+
 <h3 id="options_1">Options</h3>
+<ul>
+<li><code>-S</code>: print textual LLVM IR instead of binary. If this is specified, then <code>-o</code>
+  can be omitted and the output will go to <code>stdout</code>.</li>
+</ul>
 <h2 id="print"><code>print</code></h2>
 <h3 id="summary_3">Summary</h3>
+<p>Print TESLA automata information from an assertion manifest.</p>
+<p>Supports multiple formats for the printed information.</p>
 <h3 id="usage_3">Usage</h3>
+<pre><code class="shell">tesla print [options] &lt;input file&gt;
+</code></pre>
+
 <h3 id="options_2">Options</h3>
+<ul>
+<li>Output formats (<code>-format=</code>):<ul>
+<li><code>dot</code>: GraphViz dot</li>
+<li><code>instr</code>: instrumentation points</li>
+<li><code>names</code>: automata names</li>
+<li><code>source</code>: automata definitions from the original source code</li>
+<li><code>summary</code>: succinct summaries</li>
+<li><code>text</code>: textual automata representations</li>
+</ul>
+</li>
+<li>Automata determinism:<ul>
+<li><code>-r</code>: raw (unlinked) NFA</li>
+<li><code>-n</code>: NFA</li>
+<li><code>-d</code>: DFA</li>
+</ul>
+</li>
+</ul>
 <h2 id="static"><code>static</code></h2>
 <h3 id="summary_4">Summary</h3>
+<p>Perform static analysis on an assertion manifest, producing a new manifest with
+safe assertions deleted.</p>
 <h3 id="usage_4">Usage</h3>
-<h3 id="options_3">Options</h3></div>
+<pre><code class="shell">tesla static [options] &lt;manifest&gt; &lt;IR&gt; -o &lt;output&gt;
+</code></pre>
+
+<h3 id="options_3">Options</h3>
+<ul>
+<li>Pass selection:<ul>
+<li><code>-mc</code>: Run the TESLA model checker.</li>
+</ul>
+</li>
+<li>Model checker options:<ul>
+<li><code>-bound=&lt;int&gt;</code>: set the maximum length of finite traces to examine
+  (measured in the number of basic blocks).</li>
+<li><code>-unroll=&lt;int&gt;</code>: set the maximum function call inlining depth. If your
+  call graph is deeper than this value, information can be lost at the
+  inlining phase.</li>
+<li><code>-mem2reg</code>: run the LLVM memory to register promotion pass before the
+  model checker. This can make the checker run a lot faster, but loses
+  information about variable names. Some assertions will be incorrectly
+  marked as unsafe if using this option.</li>
+</ul>
+</li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
